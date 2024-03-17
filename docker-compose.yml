@@ -1,0 +1,35 @@
+version: '3.3'
+
+volumes:
+
+
+services:
+  db:
+    container_name:
+    image:
+    env_file: ../.env
+    volumes:
+
+  backend:
+    container_name:
+    build:
+    env_file: ../.env
+    volumes:
+
+    depends_on:
+
+  frontend:
+    container_name:
+    build:
+      context:
+      dockerfile:
+    volumes:
+
+  nginx:
+    container_name:
+    image:
+    depends_on:
+
+    ports:
+
+    volumes:
