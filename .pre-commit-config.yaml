@@ -18,7 +18,7 @@ repos:
     rev: 7.0.0
     hooks:
       - id: flake8
-        exclude: migrations/|config/|.*settings(\.py|/)?
+        exclude: alembic/ # можем позже добавить необходимые папки для исключения
         additional_dependencies:
           - flake8-print
           - flake8-comments
@@ -27,7 +27,6 @@ repos:
           - flake8-return
           - flake8-broken-line
           - pep8-naming
-
 
   - repo: https://github.com/psf/black
     rev: 24.3.0
