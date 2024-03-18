@@ -44,9 +44,11 @@ poetry add название
 poetry add название --group dev
 ```
 
-~~6. Запустите docker compose:~~
+8. Создайте файл .env из infra/.env.example
+
+9. Запустите docker compose с БД:
 ```bash
-docker compose up -d
+docker compose -f infra/docker-compose.dev.yml up -d --build
 ```
 
 
