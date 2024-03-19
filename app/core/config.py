@@ -1,6 +1,8 @@
 """Project settings."""
 
-from pydantic import SecretStr
+from typing import Optional
+
+from pydantic import EmailStr, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
@@ -9,6 +11,8 @@ class Settings(BaseSettings):
     """Pydantic validated settings."""
 
     secret: str = "SECRET"
+    first_superuser_email: Optional[EmailStr] = None
+    first_superuser_password: Optional[str] = None
 
     model_config = SettingsConfigDict(
         env_file=".env",
