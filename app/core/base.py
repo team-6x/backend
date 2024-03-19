@@ -1,6 +1,6 @@
-from app.core.db import Base  # noqa
-from app.models import User  # noqa
-from app.models import (  # noqa
+from app.core.db import Base
+from app.models import (
+    User,
     ApplicantResponsibility,
     Bonus,
     Contract,
@@ -13,4 +13,10 @@ from app.models import (  # noqa
     JobType,
     Skill,
     StopList,
+    LookupOrder,
+    LookupOrderFile,
+    LookupOrderRecruiter,
+    LookupOrderRecruiterResp,
+    RecruiterRequirement,
+    RecruiterResp,
 )

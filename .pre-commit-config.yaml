@@ -31,7 +31,7 @@ repos:
     rev: 7.0.0
     hooks:
       - id: flake8
-        exclude: alembic/|app/core/base.py|app/models/__init__.py|
+        exclude: alembic/ # можем позже добавить необходимые папки для исключения
         additional_dependencies:
           - flake8-fastapi
           - flake8-comments
