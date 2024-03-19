@@ -35,13 +35,18 @@ poetry install
 ```
 
 6. Добавление новых пакетов
-```bash 
+```bash
 poetry add название
 ```
 
 7. Добавление новых пакетов в dev
-```bash 
+```bash
 poetry add название --group dev
+```
+
+8. Установите pre-commit hook
+```bash
+pre-commit install
 ```
 
 8. Создайте файл .env из infra/.env.example
@@ -50,7 +55,3 @@ poetry add название --group dev
 ```bash
 docker compose -f infra/docker-compose.dev.yml up -d --build
 ```
-
-
-
-

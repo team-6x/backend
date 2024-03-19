@@ -1,11 +1,14 @@
-# app/core/config.py
+"""Project settings."""
+
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
 
 class Settings(BaseSettings):
-    secret: str = 'SECRET'
+    """Pydantic validated settings."""
+
+    secret: str = "SECRET"
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -32,5 +35,6 @@ class Settings(BaseSettings):
             port=self.db_port,
             database=self.db_name,
         )
+
 
 settings = Settings()

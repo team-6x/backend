@@ -14,32 +14,33 @@ repos:
     hooks:
       - id: add-trailing-comma
 
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        args: ["--line-length=79"]
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        exclude: alembic/ # можем позже добавить необходимые папки для исключения
+        args: ["--profile", "black", "--line-length=79"]
+
   - repo: https://github.com/PyCQA/flake8
     rev: 7.0.0
     hooks:
       - id: flake8
         exclude: alembic/ # можем позже добавить необходимые папки для исключения
         additional_dependencies:
-          - flake8-print
+          - flake8-fastapi
           - flake8-comments
           - flake8-docstrings
-          - flake8-isort
-          - flake8-return
           - flake8-broken-line
-          - pep8-naming
-
-  - repo: https://github.com/psf/black
-    rev: 24.3.0
-    hooks:
-      - id: black
-        args: ['--line-length=79']
+          - flake8-simplify
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.6.0
     hooks:
       - id: mypy
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
+        exclude: alembic/ # можем позже добавить необходимые папки для исключения

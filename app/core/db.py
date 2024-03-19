@@ -1,16 +1,18 @@
 """Settings for database connection and sessions creation."""
+
 import uuid
 from typing import AsyncGenerator
 
 from sqlalchemy import UUID
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
-    create_async_engine, async_sessionmaker,
+    async_sessionmaker,
+    create_async_engine,
 )
 from sqlalchemy.orm import (
+    Mapped,
     declarative_base,
     declared_attr,
-    Mapped,
     mapped_column,
 )
 
@@ -36,5 +38,6 @@ AsyncSessionLocal = async_sessionmaker(engine, class_=AsyncSession)
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
+    """Create async db session."""
     async with AsyncSessionLocal() as async_session:
         yield async_session
