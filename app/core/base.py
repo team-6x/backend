@@ -1,12 +1,16 @@
 from app.core.db import Base  # noqa
-from app.models.job_opening import (  # noqa
+from app.models import User  # noqa
+from app.models import (  # noqa
     ApplicantResponsibility,
     Bonus,
+    Contract,
     JobOpening,
     JobOpeningBonus,
+    JobOpeningContract,
     JobOpeningFile,
+    JobOpeningJobType,
     JobOpeningSkill,
+    JobType,
     Skill,
     StopList,
 )
-from app.models.user import User  # noqa

@@ -1,11 +1,14 @@
 from app.models.job_opening import (
     ApplicantResponsibility,
     Bonus,
+    Contract,
     JobOpening,
     JobOpeningBonus,
+    JobOpeningContract,
     JobOpeningFile,
-    JobOpeningRecruiter,
+    JobOpeningJobType,
     JobOpeningSkill,
+    JobType,
     Skill,
     StopList,
 )

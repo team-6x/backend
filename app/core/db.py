@@ -25,10 +25,6 @@ class PreBase:
         str_256: String(LIMIT_CHAR_256),
     }
 
-    type_annotation_map = {
-        str_256: String(LIMIT_CHAR_256),
-    }
-
 
 Base = declarative_base(cls=PreBase)
 
