@@ -31,7 +31,7 @@ repos:
     rev: 7.0.0
     hooks:
       - id: flake8
-        exclude: alembic/ # можем позже добавить необходимые папки для исключения
+        exclude: alembic/|__init__.py # можем позже добавить необходимые папки для исключения
         additional_dependencies:
           - flake8-fastapi
           - flake8-comments
@@ -39,6 +39,8 @@ repos:
           - flake8-broken-line
           - flake8-simplify
           - pep8-naming
+        args:
+          - --ignore=CF002,SIM105
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.9.0
