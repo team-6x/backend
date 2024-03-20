@@ -4,6 +4,7 @@ from app.models.job_opening import (
     JobOpening,
     JobOpeningBonus,
     JobOpeningFile,
+    JobOpeningRecruiter,
     JobOpeningSkill,
     Skill,
     StopList,
