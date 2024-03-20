@@ -1,3 +1,5 @@
+import alembic_postgresql_enum
+
 from app.core.db import Base
 from app.models import (
     User,
@@ -15,7 +17,6 @@ from app.models import (
     StopList,
     LookupOrder,
     LookupOrderFile,
-    LookupOrderRecruiter,
     LookupOrderRecruiterResp,
     RecruiterRequirement,
     RecruiterResp,

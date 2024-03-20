@@ -3,7 +3,7 @@
 import uuid
 from typing import Annotated, AsyncGenerator
 
-from sqlalchemy import UUID, String
+from sqlalchemy import String
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
@@ -20,7 +20,7 @@ str_256 = Annotated[str, LIMIT_CHAR_256]
 class PreBase:
     """Fields and settings for Base model."""
 
-    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid.UUID)
+    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.UUID)
     type_annotation_map = {
         str_256: String(LIMIT_CHAR_256),
     }

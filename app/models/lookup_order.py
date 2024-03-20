@@ -14,16 +14,11 @@ So as dependent models:
 from datetime import datetime
 from typing import List, Optional
 
-from sqlalchemy import UUID, CheckConstraint, ForeignKey
+from sqlalchemy import UUID, CheckConstraint, Column, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_file import FileField
 
-from app.core.constants import (
-    ExperienceOption,
-    LegalFormOption,
-    RecruiterRespOption,
-    TariffOption,
-)
+from app.core.constants import ExperienceOption, LegalFormOption, TariffOption
 from app.core.db import Base
 
 User = None  # delete after definition
@@ -35,8 +30,8 @@ class LookupOrder(Base):
 
     __tablename__ = "lookup_order"
 
-    employer_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"))
-    job_opening_id: Mapped[UUID] = mapped_column(ForeignKey("job_opening.id"))
+    employer_id: Mapped[UUID]  # foreign key to user
+    job_opening_id: Mapped[UUID]  # foreign key to job_opening
     tariff: Mapped[TariffOption]
     bounty: Mapped[int]
     urgency_bounty: Mapped[Optional[int]] = mapped_column(default=None)
@@ -55,10 +50,10 @@ class LookupOrder(Base):
         CheckConstraint("recruiter_quantity <= 3"),
     )
 
-    employer: Mapped["User"] = relationship(
+    """employer: Mapped["User"] = relationship(
         back_populates="lookup_orders",
         lazy="selectin",
-    )
+    )"""
     responsibilities: Mapped[List["RecruiterResp"]] = relationship(
         back_populates="lookup_order",
         secondary="lookup_order_recruiter_resp",
@@ -74,15 +69,15 @@ class LookupOrder(Base):
             lazy="selectin",
         )
     )
-    recruiters: Mapped[List["User"]] = relationship(
+    """recruiters: Mapped[List["User"]] = relationship(
         back_populates="lookup_orders",
         secondary="lookup_order_recruiter",
         lazy="selectin",
-    )
-    job_opening: Mapped["JobOpening"] = relationship(
+    )"""
+    """job_opening: Mapped["JobOpening"] = relationship(
         back_populates="lookup_order",
         lazy="selectin",
-    )
+    )"""
 
 
 class LookupOrderRecruiter(Base):
@@ -113,7 +108,7 @@ class LookupOrderFile(Base):
 
     __tablename__ = "lookup_order_file"
 
-    file: Mapped[Optional[FileField]]
+    file = Column(FileField)
 
     lookup_order_id: Mapped[UUID] = mapped_column(
         ForeignKey("lookup_order.id"),
@@ -145,7 +140,7 @@ class RecruiterResp(Base):
 
     __tablename__ = "recruiter_resp"
 
-    description: Mapped[RecruiterRespOption]
+    description: Mapped[str]
 
     responsibilities: Mapped[List["LookupOrder"]] = relationship(
         back_populates="responsibilities",
