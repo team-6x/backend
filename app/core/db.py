@@ -1,9 +1,9 @@
 """Settings for database connection and sessions creation."""
 
 import uuid
-from typing import AsyncGenerator
+from typing import Annotated, AsyncGenerator
 
-from sqlalchemy import UUID
+from sqlalchemy import UUID, String
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
@@ -17,6 +17,9 @@ from sqlalchemy.orm import (
 )
 
 from app.core.config import settings
+from app.core.constants import LIMIT_CHAR_256
+
+str_256 = Annotated[str, LIMIT_CHAR_256]
 
 
 class PreBase:
@@ -28,6 +31,9 @@ class PreBase:
         return cls.__name__.lower()
 
     id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid.UUID)
+    type_annotation_map = {
+        str_256: String(LIMIT_CHAR_256),
+    }
 
 
 Base = declarative_base(cls=PreBase)

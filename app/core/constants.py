@@ -1,9 +1,11 @@
 """Constants and enum classes for a project."""
 
-from enum import Enum
+import enum
+
+LIMIT_CHAR_256 = 256
 
 
-class ExperienceDuration(str, Enum):
+class ExperienceDuration(enum.Enum):
     """Enum class for work experience from employee."""
 
     NOT_REQUIRED = "Не требуется"
@@ -13,7 +15,7 @@ class ExperienceDuration(str, Enum):
     DOESNT_MATTER = "Не имеет значения"
 
 
-class EducationLevel(str, Enum):
+class EducationLevel(enum.Enum):
     """Enum class for education level from employee."""
 
     MIDDLE = "Среднее"
@@ -26,7 +28,7 @@ class EducationLevel(str, Enum):
     PHD = "Доктор наук"
 
 
-class EmploymentType(str, Enum):
+class EmploymentType(enum.Enum):
     """Enum class for employment status from employee."""
 
     FULL_TIME = "Полная"
@@ -36,7 +38,7 @@ class EmploymentType(str, Enum):
     INTERSHIP = "Стажировка"
 
 
-class ContractType(str, Enum):
+class ContractType(enum.Enum):
     """Enum class for contract type from employee."""
 
     LABOR_CODE_CONTRACT = "Оформление по ТК РФ"
@@ -46,7 +48,7 @@ class ContractType(str, Enum):
     SELF_EMPLOYMENT = "Самозанятость"
 
 
-class WorkArrangements(str, Enum):
+class WorkArrangements(enum.Enum):
     """Enum class for work format from employee."""
 
     OFFICE = "Офис"
