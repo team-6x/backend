@@ -54,11 +54,11 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         """Password validation."""
         if len(password) < 8:
             raise InvalidPasswordException(
-                reason="Password should be at least 8 characters",
+                reason="Пароль должен содержать не менее 8 символов",
             )
         if user.email in password:
             raise InvalidPasswordException(
-                reason="Password should not contain e-mail",
+                reason="Пароль не должен содержать адрес электронной почты",
             )
 
 
