@@ -14,11 +14,7 @@ from app.core.constants import (
     WorkArrangements,
 )
 from app.core.db import Base, str_256
-
-
-class User:
-    def __init__(self, id):
-        self.id = id
+from app.models.user import User
 
 
 class JobOpening(Base):
