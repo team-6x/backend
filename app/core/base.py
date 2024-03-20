@@ -9,3 +9,4 @@ from app.models.job_opening import (  # noqa
     Skill,
     StopList,
 )
+from app.models.user import User  # noqa

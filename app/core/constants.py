@@ -54,3 +54,10 @@ class WorkArrangements(enum.Enum):
     OFFICE = "Офис"
     REMOTE = "Удаленная работа"
     HYBRID = "Гибрид"
+
+
+class Role(enum.Enum):
+    """Describe the User role options."""
+
+    EMPLOYER = "Работодатель"
+    RECRUITER = "Рекрутер"

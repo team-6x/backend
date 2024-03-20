@@ -1,10 +1,11 @@
-from .job_opening import JobOpening  # noqa
-from .job_opening import (
+from app.models.job_opening import (
     ApplicantResponsibility,
     Bonus,
+    JobOpening,
     JobOpeningBonus,
     JobOpeningFile,
     JobOpeningSkill,
     Skill,
     StopList,
 )
+from app.models.user import User
