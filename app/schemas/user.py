@@ -5,7 +5,7 @@ from typing import Optional
 from fastapi_users import schemas
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
-from app.models.user import Role
+from app.core.constants import Role
 
 
 class UserRead(schemas.BaseUser[int]):
