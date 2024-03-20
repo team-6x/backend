@@ -34,21 +34,13 @@ class LookupOrder(Base):
     job_opening_id: Mapped[UUID]  # foreign key to job_opening
     tariff: Mapped[TariffOption]
     bounty: Mapped[int]
-    urgency_bounty: Mapped[Optional[int]] = mapped_column(default=None)
+    urgency_bounty: Mapped[Optional[int]]
     awaited_employee_date: Mapped[datetime]  # set default on crud level
-    first_cv_await_date: Mapped[Optional[datetime]] = mapped_column(
-        default=None,
-    )
+    first_cv_await_date: Mapped[Optional[datetime]]
     recruiter_quantity: Mapped[int] = mapped_column(default=1)
     recruiter_experience: Mapped[ExperienceOption]
     legal_form: Mapped[LegalFormOption]
-    additional_info: Mapped[str]
-    is_require_security_check: Mapped[bool]
-
-    __table_args__ = (
-        CheckConstraint("recruiter_quantity >= 1"),
-        CheckConstraint("recruiter_quantity <= 3"),
-    )
+    additional_info: Mapped[Optional[str]]
 
     employer: Mapped["User"] = relationship(
         back_populates="lookup_orders",
@@ -63,7 +55,7 @@ class LookupOrder(Base):
         back_populates="lookup_order",
         lazy="selectin",
     )
-    recruiter_requirements: Mapped[List["RecruiterRequirement"]] = (
+    recruiter_requirements: Mapped[Optional[List["RecruiterRequirement"]]] = (
         relationship(
             back_populates="recruiter_requirement",
             lazy="selectin",
@@ -77,6 +69,11 @@ class LookupOrder(Base):
     job_opening: Mapped["JobOpening"] = relationship(
         back_populates="lookup_order",
         lazy="selectin",
+    )
+
+    __table_args__ = (
+        CheckConstraint("recruiter_quantity >= 1"),
+        CheckConstraint("recruiter_quantity <= 3"),
     )
 
 
@@ -111,7 +108,7 @@ class LookupOrderFile(Base):
     file = Column(FileField)
 
     lookup_order_id: Mapped[UUID] = mapped_column(
-        ForeignKey("lookup_order.id"),
+        ForeignKey("lookup_order.id", ondelete="CASCADE"),
     )
     lookup_order: Mapped["LookupOrder"] = relationship(
         back_populates="file",
@@ -127,7 +124,7 @@ class RecruiterRequirement(Base):
     description: Mapped[str]
 
     lookup_order_id: Mapped[UUID] = mapped_column(
-        ForeignKey("lookup_order.id"),
+        ForeignKey("lookup_order.id", ondelete="CASCADE"),
     )
     lookup_order: Mapped["LookupOrder"] = relationship(
         back_populates="recruiter_requirements",
