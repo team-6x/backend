@@ -16,6 +16,11 @@ from app.core.constants import (
 from app.core.db import Base, str_256
 
 
+class User:
+    def __init__(self, id):
+        self.id = id
+
+
 class JobOpening(Base):
     """
     Describe a model that makes a job opening for employer.
@@ -57,6 +62,33 @@ class JobOpening(Base):
         lazy="selectin",
     )
     additional_info: Mapped[Optional[str]]
+    employer: Mapped["User"] = relationship(
+        back_populates="lookup_orders",
+        lazy="selectin",
+    )
+    recruiters: Mapped[List["User"]] = relationship(
+        back_populates="lookup_orders",
+        secondary="job_opening_recruiter",
+        lazy="selectin",
+    )
+
+
+class JobOpeningRecruiter(Base):
+    """
+    Describe a secondary model.
+    Connects job_opening table with user (recruiter) model.
+    """
+
+    __tablename__ = "job_opening_recruiter"
+
+    job_opening_id: Mapped[UUID] = mapped_column(
+        ForeignKey("job_opening.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    recruiter_id: Mapped[UUID] = mapped_column(
+        ForeignKey("user.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
 
 
 class ApplicantResponsibility(Base):
