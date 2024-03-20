@@ -9,7 +9,7 @@ from app.core.constants import Role
 
 
 class UserRead(schemas.BaseUser[int]):
-    """The reading scheme for the User."""
+    """Describe the scheme for the User to read."""
 
     name: str
     surname: str
@@ -18,7 +18,7 @@ class UserRead(schemas.BaseUser[int]):
 
 
 class UserCreate(schemas.BaseUserCreate):
-    """The creation scheme for the User."""
+    """Describe the scheme for creating a User."""
 
     name: str
     surname: str
@@ -27,7 +27,7 @@ class UserCreate(schemas.BaseUserCreate):
 
 
 class UserUpdate(schemas.BaseUserUpdate):
-    """The update scheme for the User."""
+    """Describe the scheme for updating the User."""
 
     name: Optional[str]
     surname: Optional[str]

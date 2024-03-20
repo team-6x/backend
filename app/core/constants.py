@@ -6,7 +6,7 @@ LIMIT_CHAR_256 = 256
 
 
 class Role(enum.Enum):
-    """Roles for User."""
+    """Describe the User role options."""
 
     EMPLOYER = "Работодатель"
     RECRUITER = "Рекрутер"

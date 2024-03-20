@@ -9,7 +9,7 @@ from app.core.db import Base, str_256
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
-    """The model for the User."""
+    """Describe the model that stores the User."""
 
     __tablename__ = "user"
 
