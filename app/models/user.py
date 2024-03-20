@@ -13,10 +13,9 @@ class User(SQLAlchemyBaseUserTable[int], Base):
 
     __tablename__ = "user"
 
-    name: Mapped[str_256] = mapped_column(nullable=False)
-    surname: Mapped[str_256] = mapped_column(nullable=False)
+    name: Mapped[str_256]
+    surname: Mapped[str_256]
     role: Mapped[Role]
     phone_number: Mapped[PhoneNumber] = mapped_column(
-        nullable=False,
         unique=True,
     )
