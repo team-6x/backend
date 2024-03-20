@@ -10,8 +10,9 @@ from app.core.constants import Role
 from app.core.db import Base, str_256
 
 # from app.models.lookup_order import LookupOrder
+# from app.models.lookup_order import JobOpening
 
-
+JobOpening = None
 LookupOrder = None
 
 
@@ -25,6 +26,10 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     role: Mapped[Role]
     phone_number: Mapped[PhoneNumber] = mapped_column(
         unique=True,
+    )
+    job_opening: Mapped[List["JobOpening"]] = relationship(
+        back_populates="employer",
+        lazy="selectin",
     )
     lookup_orders_employer: Mapped[List["LookupOrder"]] = relationship(
         back_populates="employer",
