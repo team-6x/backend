@@ -1,3 +1,11 @@
+from app.models.lookup_order import (  # noqa
+    LookupOrder,
+    LookupOrderFile,
+    LookupOrderRecruiter,
+    LookupOrderRecruiterResp,
+    RecruiterRequirement,
+    RecruiterResp,
+)
 from app.models.job_opening import (
     ApplicantResponsibility,
     Bonus,
