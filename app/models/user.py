@@ -1,11 +1,18 @@
 """User Models."""
 
+from typing import List
+
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from pydantic_extra_types.phone_numbers import PhoneNumber
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.constants import Role
 from app.core.db import Base, str_256
+
+# from app.models.lookup_order import LookupOrder
+
+
+LookupOrder = None
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
@@ -18,4 +25,13 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     role: Mapped[Role]
     phone_number: Mapped[PhoneNumber] = mapped_column(
         unique=True,
+    )
+    lookup_orders_employer: Mapped[List["LookupOrder"]] = relationship(
+        back_populates="employer",
+        lazy="selectin",
+    )
+    lookup_orders_recruiters: Mapped[List["LookupOrder"]] = relationship(
+        back_populates="recruiters",
+        secondary="lookup_order_recruiter",
+        lazy="selectin",
     )
