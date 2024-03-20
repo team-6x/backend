@@ -50,10 +50,10 @@ class LookupOrder(Base):
         CheckConstraint("recruiter_quantity <= 3"),
     )
 
-    """employer: Mapped["User"] = relationship(
+    employer: Mapped["User"] = relationship(
         back_populates="lookup_orders",
         lazy="selectin",
-    )"""
+    )
     responsibilities: Mapped[List["RecruiterResp"]] = relationship(
         back_populates="lookup_order",
         secondary="lookup_order_recruiter_resp",
@@ -69,15 +69,15 @@ class LookupOrder(Base):
             lazy="selectin",
         )
     )
-    """recruiters: Mapped[List["User"]] = relationship(
+    recruiters: Mapped[List["User"]] = relationship(
         back_populates="lookup_orders",
         secondary="lookup_order_recruiter",
         lazy="selectin",
-    )"""
-    """job_opening: Mapped["JobOpening"] = relationship(
+    )
+    job_opening: Mapped["JobOpening"] = relationship(
         back_populates="lookup_order",
         lazy="selectin",
-    )"""
+    )
 
 
 class LookupOrderRecruiter(Base):
