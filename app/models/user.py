@@ -9,7 +9,8 @@ from sqlalchemy_utils import PhoneNumberType
 
 from app.core.constants import Role
 from app.core.db import Base, str_256
-from app.models import JobOpening, LookupOrder
+from app.models.job_opening import JobOpening
+from app.models.lookup_order import LookupOrder
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):

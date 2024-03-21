@@ -24,7 +24,8 @@ from sqlalchemy_file import FileField
 
 from app.core.constants import ExperienceOption, LegalFormOption, TariffOption
 from app.core.db import Base, str_256
-from app.models import JobOpening, User
+from app.models.job_opening import JobOpening
+from app.models.user import User
 
 
 class LookupOrder(Base):
@@ -32,8 +33,10 @@ class LookupOrder(Base):
 
     __tablename__ = "lookup_order"
 
-    employer_id: Mapped[uuid.UUID]  # foreign key to user
-    job_opening_id: Mapped[uuid.UUID]  # foreign key to job_opening
+    employer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("job_opening.id"),
+    )
     tariff: Mapped[TariffOption]
     bounty: Mapped[int]
     urgency_bounty: Mapped[Optional[int]]
