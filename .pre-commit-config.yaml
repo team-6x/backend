@@ -24,14 +24,14 @@ repos:
     rev: 5.12.0
     hooks:
       - id: isort
-        exclude: alembic/ # можем позже добавить необходимые папки для исключения
+        exclude: alembic/|app/models/__init__.py|
         args: ["--profile", "black", "--line-length=79"]
 
   - repo: https://github.com/PyCQA/flake8
     rev: 7.0.0
     hooks:
       - id: flake8
-        exclude: alembic/|__init__.py # можем позже добавить необходимые папки для исключения
+        exclude: alembic/|app/core/base.py|app/models/__init__.py|
         additional_dependencies:
           - flake8-fastapi
           - flake8-comments
@@ -46,4 +46,4 @@ repos:
     rev: v1.9.0
     hooks:
       - id: mypy
-        exclude: alembic/ # можем позже добавить необходимые папки для исключения
+        exclude: alembic/

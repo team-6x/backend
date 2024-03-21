@@ -21,7 +21,6 @@ class PreBase:
     """Fields and settings for Base model."""
 
     id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid.UUID)
-
     type_annotation_map = {
         str_256: String(LIMIT_CHAR_256),
     }
