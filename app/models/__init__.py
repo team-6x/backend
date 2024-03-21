@@ -12,7 +12,7 @@ from app.models.job_opening import (
     Skill,
     StopList,
 )
-from app.models.lookup_order import (  # noqa
+from app.models.lookup_order import (
     LegalForm,
     LookupOrder,
     LookupOrderFile,
