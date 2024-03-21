@@ -145,7 +145,7 @@ class Bonus(Base):
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    bonus: Mapped[List["JobOpening"]] = relationship(
+    job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="bonuses",
         secondary="job_opening_bonus",
         lazy="selectin",
@@ -180,7 +180,7 @@ class Contract(Base):
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    contract: Mapped[List["JobOpening"]] = relationship(
+    job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="contracts",
         secondary="job_opening_contract",
         lazy="selectin",
@@ -215,7 +215,7 @@ class JobType(Base):
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    job_type: Mapped[List["JobOpening"]] = relationship(
+    job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="job_types",
         secondary="job_opening_job_type",
         lazy="selectin",
@@ -249,7 +249,7 @@ class Skill(Base):
     job_opening_id: Mapped[UUID] = mapped_column(
         ForeignKey("job_opening.id"),
     )
-    skill: Mapped[List["JobOpening"]] = relationship(
+    job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="skills",
         secondary="job_opening_skill",
         lazy="selectin",
