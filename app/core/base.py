@@ -2,7 +2,6 @@ import alembic_postgresql_enum
 
 from app.core.db import Base
 from app.models import (
-    User,
     ApplicantResponsibility,
     Bonus,
     Contract,
@@ -13,11 +12,14 @@ from app.models import (
     JobOpeningJobType,
     JobOpeningSkill,
     JobType,
-    Skill,
-    StopList,
+    LegalForm,
     LookupOrder,
     LookupOrderFile,
+    LookupOrderLegalForm,
     LookupOrderRecruiterResp,
     RecruiterRequirement,
-    RecruiterResp,
+    RecruiterResponsibility,
+    Skill,
+    StopList,
+    User,
 )

@@ -1,10 +1,3 @@
-from app.models.lookup_order import (  # noqa
-    LookupOrder,
-    LookupOrderFile,
-    LookupOrderRecruiterResp,
-    RecruiterRequirement,
-    RecruiterResp,
-)
 from app.models.job_opening import (
     ApplicantResponsibility,
     Bonus,
@@ -18,5 +11,14 @@ from app.models.job_opening import (
     JobType,
     Skill,
     StopList,
+)
+from app.models.lookup_order import (  # noqa
+    LegalForm,
+    LookupOrder,
+    LookupOrderFile,
+    LookupOrderLegalForm,
+    LookupOrderRecruiterResp,
+    RecruiterRequirement,
+    RecruiterResponsibility,
 )
 from app.models.user import User
