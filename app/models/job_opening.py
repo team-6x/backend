@@ -65,7 +65,7 @@ class JobOpening(Base):
     additional_info: Mapped[Optional[str]]
     employer_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"))
     employer: Mapped["User"] = relationship(
-        back_populates="employer_job_openings",
+        back_populates="job_openings_employer",
         lazy="selectin",
     )
 
@@ -141,10 +141,6 @@ class Bonus(Base):
 
     __tablename__ = "applicant_bonus"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
-        ForeignKey("job_opening.id", ondelete="CASCADE"),
-        primary_key=True,
-    )
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="bonuses",
         secondary="job_opening_bonus",
@@ -176,10 +172,6 @@ class Contract(Base):
 
     __tablename__ = "applicant_contract"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
-        ForeignKey("job_opening.id", ondelete="CASCADE"),
-        primary_key=True,
-    )
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="contracts",
         secondary="job_opening_contract",
@@ -211,10 +203,6 @@ class JobType(Base):
 
     __tablename__ = "applicant_job_type"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
-        ForeignKey("job_opening.id", ondelete="CASCADE"),
-        primary_key=True,
-    )
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="job_types",
         secondary="job_opening_job_type",
@@ -246,9 +234,6 @@ class Skill(Base):
 
     __tablename__ = "applicant_skill"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
-        ForeignKey("job_opening.id"),
-    )
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="skills",
         secondary="job_opening_skill",

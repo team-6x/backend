@@ -26,7 +26,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     phone_number: Mapped[PhoneNumber] = mapped_column(
         unique=True,
     )
-    job_opening: Mapped[List["JobOpening"]] = relationship(
+    job_openings_employer: Mapped[List["JobOpening"]] = relationship(
         back_populates="employer",
         lazy="selectin",
     )
