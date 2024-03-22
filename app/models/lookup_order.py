@@ -22,7 +22,12 @@ from sqlalchemy import CheckConstraint, Column, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_file import FileField
 
-from app.core.constants import ExperienceOption, LegalFormOption, TariffOption
+from app.core.constants import (
+    MAXIMUM_RECRUITER_QUANTITY,
+    ExperienceDuration,
+    LegalFormOption,
+    TariffOption,
+)
 from app.core.db import Base, str_256
 from app.models.job_opening import JobOpening
 from app.models.user import User
@@ -43,7 +48,7 @@ class LookupOrder(Base):
     awaited_employee_date: Mapped[datetime]  # set default on crud level
     first_cv_await_date: Mapped[Optional[datetime]]
     recruiter_quantity: Mapped[int] = mapped_column(default=1)
-    recruiter_experience: Mapped[ExperienceOption]
+    recruiter_experience: Mapped[ExperienceDuration]
     legal_form: Mapped[LegalFormOption]
     additional_info: Mapped[Optional[str]]
 
@@ -80,7 +85,9 @@ class LookupOrder(Base):
 
     __table_args__ = (
         CheckConstraint("recruiter_quantity >= 1"),
-        CheckConstraint("recruiter_quantity <= 3"),
+        CheckConstraint(
+            f"recruiter_quantity <= {str(MAXIMUM_RECRUITER_QUANTITY)}",
+        ),
     )
 
 
