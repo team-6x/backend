@@ -16,8 +16,9 @@ from sqlalchemy_file import FileField
 from app.core.constants import (
     MAXIMUM_RECRUITER_QUANTITY,
     MINIMAL_EMPLOYEE_AWAITING_TIME_DAYS,
+    MINIMUM_RECRUITER_QUANTITY,
+    MINIMUM_URGENCY_BOUNTY,
     ExperienceDuration,
-    LegalFormOption,
     TariffOption,
 )
 from app.core.db import str_256
@@ -50,12 +51,15 @@ class LookupOrderCreate(BaseModel):
     job_opening_id: uuid.UUID
     tariff: TariffOption
     bounty: int = Field(gt=0)
-    urgency_bounty: int = Field(default=0, ge=0)
+    urgency_bounty: int = Field(default=MINIMUM_URGENCY_BOUNTY, ge=0)
     awaited_employee_date: datetime
     first_cv_await_date: Optional[datetime] = None
-    recruiter_quantity: int = Field(ge=1, le=MAXIMUM_RECRUITER_QUANTITY)
+    recruiter_quantity: int = Field(
+        ge=MINIMUM_RECRUITER_QUANTITY,
+        le=MAXIMUM_RECRUITER_QUANTITY,
+    )
     recruiter_experience: ExperienceDuration = ExperienceDuration.DOESNT_MATTER
-    legal_form: LegalFormOption
+    legal_form: list[NameModelCreate]
     additional_info: Optional[str] = None
     responsibilities: Optional[list[DescriptionModelCreate]] = None
     file: Optional[FileModelCreate] = None

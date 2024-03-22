@@ -25,12 +25,10 @@ from sqlalchemy_file import FileField
 from app.core.constants import (
     MAXIMUM_RECRUITER_QUANTITY,
     ExperienceDuration,
-    LegalFormOption,
     TariffOption,
 )
 from app.core.db import Base, str_256
 from app.models.job_opening import JobOpening
-from app.models.user import User
 
 
 class LookupOrder(Base):
@@ -49,10 +47,9 @@ class LookupOrder(Base):
     first_cv_await_date: Mapped[Optional[datetime]]
     recruiter_quantity: Mapped[int] = mapped_column(default=1)
     recruiter_experience: Mapped[ExperienceDuration]
-    legal_form: Mapped[LegalFormOption]
     additional_info: Mapped[Optional[str]]
 
-    employer: Mapped["User"] = relationship(
+    employer: Mapped["User"] = relationship(  # noqa
         back_populates="lookup_orders_employer",
         lazy="selectin",
     )
@@ -73,7 +70,7 @@ class LookupOrder(Base):
             lazy="selectin",
         )
     )
-    recruiters: Mapped[List["User"]] = relationship(
+    recruiters: Mapped[List["User"]] = relationship(  # noqa
         back_populates="lookup_orders_recruiters",
         secondary="lookup_order_recruiter",
         lazy="selectin",
@@ -82,7 +79,11 @@ class LookupOrder(Base):
         back_populates="lookup_order",
         lazy="selectin",
     )
-
+    legal_forms: Mapped[List["LegalForm"]] = relationship(
+        back_populates="lookup_orders",
+        secondary="lookup_order_legal_form",
+        lazy="selectin",
+    )
     __table_args__ = (
         CheckConstraint("recruiter_quantity >= 1"),
         CheckConstraint(
@@ -187,7 +188,7 @@ class LegalForm(Base):
     name: Mapped[str_256]
 
     legal_forms: Mapped[List["LookupOrder"]] = relationship(
-        back_populates="responsibilities",
+        back_populates="legal_forms",
         secondary="lookup_order_legal_form",
         lazy="selectin",
     )

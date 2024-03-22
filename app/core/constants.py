@@ -4,7 +4,9 @@ import enum
 
 LIMIT_CHAR_256 = 256
 MINIMAL_EMPLOYEE_AWAITING_TIME_DAYS = 7
+MINIMUM_URGENCY_BOUNTY = 0
 MAXIMUM_RECRUITER_QUANTITY = 3
+MINIMUM_RECRUITER_QUANTITY = 1
 
 
 class ExperienceDuration(str, enum.Enum):
@@ -50,12 +52,3 @@ class TariffOption(str, enum.Enum):
     ALL_BEFORE = "100% до выхода"
     HALF_BEFORE_HALF_AFTER = "50% до выхода 50% после гарантийного срока"
     ALL_AFTER = "100% после гарантийного срока"
-
-
-class LegalFormOption(str, enum.Enum):
-    """Describe a legal form of collaboration options."""
-
-    INDIVIDUAL = "Физическое лицо"
-    LEGAL_ENTITY = (
-        "Юридическое лицо, Индивидуальный предприниматель, Cамозанятый"
-    )
