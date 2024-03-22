@@ -51,10 +51,12 @@ class LookupOrder(Base):
         back_populates="lookup_orders_employer",
         lazy="selectin",
     )
-    responsibilities: Mapped[List["RecruiterResponsibility"]] = relationship(
-        back_populates="lookup_order",
-        secondary="lookup_order_recruiter_resp",
-        lazy="selectin",
+    responsibilities: Mapped[Optional[List["RecruiterResponsibility"]]] = (
+        relationship(
+            back_populates="lookup_order",
+            secondary="lookup_order_recruiter_resp",
+            lazy="selectin",
+        )
     )
     file: Mapped["LookupOrderFile"] = relationship(
         back_populates="lookup_order",

@@ -1,8 +1,9 @@
 """Contain a JobOpening model for a project."""
 
+import uuid
 from typing import List, Optional
 
-from sqlalchemy import UUID, Column, ForeignKey
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy_file import FileField
 
@@ -63,7 +64,7 @@ class JobOpening(Base):
         lazy="selectin",
     )
     additional_info: Mapped[Optional[str]]
-    employer_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"))
+    employer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
     employer: Mapped["User"] = relationship(
         back_populates="job_openings_employer",
         lazy="selectin",
@@ -75,7 +76,7 @@ class ApplicantResponsibility(Base):
 
     __tablename__ = "applicant_responsibilities"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
@@ -91,7 +92,7 @@ class StopList(Base):
 
     __tablename__ = "stop_list"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
@@ -107,7 +108,7 @@ class JobOpeningFile(Base):
 
     __tablename__ = "job_opening_file"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
@@ -127,11 +128,11 @@ class JobOpeningBonus(Base):
 
     __tablename__ = "job_opening_bonus"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    bonus_id: Mapped[UUID] = mapped_column(
+    bonus_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("bonus.id", ondelete="CASCADE"),
         primary_key=True,
     )
@@ -159,11 +160,11 @@ class JobOpeningContract(Base):
 
     __tablename__ = "job_opening_contract"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    contract_id: Mapped[UUID] = mapped_column(
+    contract_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("contract.id", ondelete="CASCADE"),
         primary_key=True,
     )
@@ -191,11 +192,11 @@ class JobOpeningJobType(Base):
 
     __tablename__ = "job_opening_job_type"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    job_type_id: Mapped[UUID] = mapped_column(
+    job_type_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_type.id", ondelete="CASCADE"),
         primary_key=True,
     )
@@ -223,11 +224,11 @@ class JobOpeningSkill(Base):
 
     __tablename__ = "job_opening_skill"
 
-    job_opening_id: Mapped[UUID] = mapped_column(
+    job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
         primary_key=True,
     )
-    skill_id: Mapped[UUID] = mapped_column(
+    skill_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("skill.id", ondelete="CASCADE"),
         primary_key=True,
     )
