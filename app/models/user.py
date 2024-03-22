@@ -1,4 +1,4 @@
-"""User Models."""
+"""Contain a model for User."""
 
 from typing import List
 
@@ -9,8 +9,6 @@ from sqlalchemy_utils import PhoneNumberType
 
 from app.core.constants import Role
 from app.core.db import Base, str_256
-from app.models.job_opening import JobOpening
-from app.models.lookup_order import LookupOrder
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
@@ -25,16 +23,18 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         PhoneNumberType(),
         unique=True,
     )
-    job_openings_employer: Mapped[List["JobOpening"]] = relationship(
+    job_openings_employer: Mapped[List["JobOpening"]] = relationship(  # noqa
         back_populates="employer",
         lazy="selectin",
     )
-    lookup_orders_employer: Mapped[List["LookupOrder"]] = relationship(
+    lookup_orders_employer: Mapped[List["LookupOrder"]] = relationship(  # noqa
         back_populates="employer",
         lazy="selectin",
     )
-    lookup_orders_recruiters: Mapped[List["LookupOrder"]] = relationship(
-        back_populates="recruiters",
-        secondary="lookup_order_recruiter",
-        lazy="selectin",
+    lookup_orders_recruiters: Mapped[List["LookupOrder"]] = (  # noqa
+        relationship(
+            back_populates="recruiters",
+            secondary="lookup_order_recruiter",
+            lazy="selectin",
+        )
     )

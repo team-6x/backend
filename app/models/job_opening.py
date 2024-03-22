@@ -13,7 +13,6 @@ from app.core.constants import (
     WorkArrangements,
 )
 from app.core.db import Base, str_256
-from app.models.user import User
 
 
 class JobOpening(Base):
@@ -65,7 +64,7 @@ class JobOpening(Base):
     )
     additional_info: Mapped[Optional[str]]
     employer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
-    employer: Mapped["User"] = relationship(
+    employer: Mapped["User"] = relationship(  # noqa
         back_populates="job_openings_employer",
         lazy="selectin",
     )
