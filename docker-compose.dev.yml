@@ -1,12 +1,14 @@
-version: "3.10"
+version: '3.10'
 
 volumes:
-  postgres:
+  database:
+  static:
+  media:
 
 services:
-  postgres:
+  database:
+    container_name: hrspace_database
     image: postgres:alpine
-    container_name: postgres_hrspace
     restart: always
     env_file:
     - .env
@@ -19,4 +21,56 @@ services:
     ports:
       - "${DB_PORT}:5432"
     volumes:
-      - postgres:/var/lib/postgresql/data/
+      - database:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrations:
+    container_name: hrspace_migrations
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: infra/alembic.Dockerfile
+    env_file: .env
+    depends_on:
+      database:
+        condition: service_healthy
+
+  backend:
+    container_name: hrspace_backend
+    restart: always
+    build:
+      context: ./
+      dockerfile: infra/fast_api.Dockerfile
+    volumes:
+      - media:/app/media/
+    env_file: .env
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    container_name: hrspace_frontend
+    restart: always
+    image: asbest/hrspace-frontend
+    volumes:
+      - static:/app/result_build/build
+
+  gateway:
+    container_name: hrspace_gateway
+    restart: always
+    build:
+      context: ./
+      dockerfile: infra/nginx.Dockerfile
+    volumes:
+      - static:/usr/share/nginx/html/staticfiles/
+      - media:/usr/share/nginx/html/media/
+    ports:
+      - "80:80"
+    links:
+      - backend
+    depends_on:
+      - backend

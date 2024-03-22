@@ -1,35 +1,70 @@
-version: '3.3'
+version: '3.10'
 
 volumes:
-
+  database:
+  static:
+  media:
 
 services:
-  db:
-    container_name:
-    image:
-    env_file: .env
+  database:
+    container_name: hrspace_database
+    image: postgres:alpine
+    restart: always
+    env_file:
+    - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_HOST=localhost
+    ports:
+      - "${DB_PORT}:5432"
     volumes:
+      - database:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrations:
+    container_name: hrspace_migrations
+    restart: on-failure
+    image: pandenic/hrspace_migrations
+    env_file: .env
+    depends_on:
+      database:
+        condition: service_healthy
 
   backend:
-    container_name:
-    build:
-    env_file: .env
+    container_name: hrspace_backend
+    restart: always
+    image: pandenic/hrspace_backend
     volumes:
-
+      - media:/app/media/
+    env_file: .env
     depends_on:
+      database:
+        condition: service_healthy
 
   frontend:
-    container_name:
-    build:
-      context:
-      dockerfile:
+    container_name: hrspace_frontend
+    restart: always
+    image: asbest/hrspace-frontend
     volumes:
+      - static:/app/result_build
 
-  nginx:
-    container_name:
-    image:
-    depends_on:
-
+  gateway:
+    container_name: hrspace_gateway
+    restart: always
+    image: pandenic/hrspace_gateway
+    volumes:
+      - static:/usr/share/nginx/html/staticfiles/
+      - media:/usr/share/nginx/html/media/
     ports:
-
-    volumes:
+      - "80:80"
+    links:
+      - backend
+    depends_on:
+      - backend
