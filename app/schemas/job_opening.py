@@ -4,32 +4,20 @@ import uuid
 from typing import Optional, Union
 
 from pydantic import BaseModel, Field, field_validator, model_validator
-from sqlalchemy_file import FileField
 
 from app.core.constants import (
+    MAXIMUM_SALARY,
+    MINIMUM_SALARY,
     EducationLevel,
     ExperienceDuration,
     WorkArrangements,
 )
 from app.core.db import str_256
-
-
-class FileCreate(BaseModel):
-    """Describe a model to create a file."""
-
-    file: FileField
-
-
-class NameCreate(BaseModel):
-    """Describe a model to create a name field."""
-
-    name: str_256
-
-
-class DescriptionCreate(BaseModel):
-    """Describe a model to create a description field."""
-
-    description: str
+from app.schemas.base import (
+    DescriptionModelCreate,
+    FileModelCreate,
+    NameModelCreate,
+)
 
 
 class JobOpeningCreate(BaseModel):
@@ -37,20 +25,20 @@ class JobOpeningCreate(BaseModel):
 
     name: str_256
     activity_field: str_256
-    description: Optional[str]
+    description: Optional[str] = None
     responsibilities: list[str]
     work_experience: ExperienceDuration
     education: EducationLevel
-    job_types: list[DescriptionCreate]
-    skills: Optional[list[NameCreate]]
-    min_salary: int = Field(gt=0)
-    max_salary: int = Field(gt=0)
+    job_types: list[DescriptionModelCreate]
+    skills: Optional[list[NameModelCreate]] = None
+    min_salary: int = Field(gt=MINIMUM_SALARY)
+    max_salary: int = Field(gt=MAXIMUM_SALARY)
     arrangement: WorkArrangements
-    contracts: list[NameCreate]
-    insurance: Optional[bool]
-    bonuses: Optional[list[DescriptionCreate]]
-    location: Optional[str_256]
-    file: Optional[FileCreate]
+    contracts: list[NameModelCreate]
+    insurance: Optional[bool] = None
+    bonuses: Optional[list[DescriptionModelCreate]] = None
+    location: Optional[str_256] = None
+    file: Optional[FileModelCreate] = None
     additional_info: Optional[str]
     employer_id: uuid.UUID
 
@@ -92,7 +80,7 @@ class JobOpeningUpdate(JobOpeningCreate):  # сделал на будущее н
             WorkArrangements,
             ExperienceDuration,
             EducationLevel,
-            NameCreate,
+            NameModelCreate,
         ],
     ):
         """Check if all requierd fields are not empty."""
