@@ -1,4 +1,4 @@
-"""User Models."""
+"""Contain a model for User."""
 
 from typing import List
 
