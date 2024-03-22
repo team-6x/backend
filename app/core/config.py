@@ -1,10 +1,15 @@
 """Project settings."""
 
+from pydantic import SecretStr
+import os
+
+from libcloud.storage.drivers.local import LocalStorageDriver
 from typing import Optional
 
 from pydantic import EmailStr, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
+from sqlalchemy_file.storage import StorageManager
 
 
 class Settings(BaseSettings):
@@ -27,6 +32,15 @@ class Settings(BaseSettings):
     db_password: SecretStr
     db_host: str
     db_port: int
+
+    """os.makedirs("./upload_dir/lookup_order_file", 0o777, exist_ok=True)
+    container = LocalStorageDriver("./upload_dir").get_container(
+        "lookup_order_file",
+    )
+    container = LocalStorageDriver("./upload_dir").get_container(
+        "job_opening_file",
+    )
+    StorageManager.add_storage("default", container)"""
 
     @property
     def postgres_connection_url(self) -> URL:

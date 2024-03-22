@@ -1,5 +1,4 @@
 """Constants and enum classes for a project."""
-
 import enum
 
 LIMIT_CHAR_256 = 256
@@ -40,3 +39,29 @@ class Role(enum.Enum):
 
     EMPLOYER = "Работодатель"
     RECRUITER = "Рекрутер"
+
+
+class TariffOption(enum.Enum):
+    """Describe a payment tariff options."""
+
+    ALL_BEFORE = "100% до выхода"
+    HALF_BEFORE_HALF_AFTER = "50% до выхода 50% после гарантийного срока"
+    ALL_AFTER = "100% после гарантийного срока"
+
+
+class LegalFormOption(enum.Enum):
+    """Describe a legal form of collaboration options."""
+
+    INDIVIDUAL = "Физическое лицо"
+    LEGAL_ENTITY = (
+        "Юридическое лицо, Индивидуальный предприниматель, Cамозанятый"
+    )
+
+
+class ExperienceOption(enum.Enum):
+    """Describe a work experience."""
+
+    NO_EXPERIENCE = "Нет опыта"
+    FROM_1_TO_3_YEARS = "От 1 до 3 лет"
+    FROM_3_TO_6_YEARS = "От 3 до 6 лет"
+    MORE_THAN_6_YEARS = "6+ лет"

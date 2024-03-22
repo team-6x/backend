@@ -21,7 +21,7 @@ class JobOpening(Base):
     __tablename__ = "job_opening"
 
     name: Mapped[str_256]
-    acitivity_feild: Mapped[str]
+    activity_field: Mapped[str_256]
     description: Mapped[Optional[str]]
     responsibilities: Mapped[list["ApplicantResponsibility"]] = relationship(
         back_populates="job_opening",
@@ -53,7 +53,7 @@ class JobOpening(Base):
         secondary="job_opening_bonus",
         lazy="selectin",
     )
-    location: Mapped[Optional[str]]
+    location: Mapped[Optional[str_256]]
     stop_list: Mapped[Optional[list["StopList"]]] = relationship(
         back_populates="job_opening",
         lazy="selectin",
@@ -73,7 +73,7 @@ class JobOpening(Base):
 class ApplicantResponsibility(Base):
     """Describe a model for responobility of applicant."""
 
-    __tablename__ = "applicant_responsibility"
+    __tablename__ = "applicant_responsibilities"
 
     job_opening_id: Mapped[UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
@@ -115,12 +115,13 @@ class JobOpeningFile(Base):
         back_populates="file",
         lazy="selectin",
     )
-    file: Column[FileField]
+    file = Column(FileField)
 
 
 class JobOpeningBonus(Base):
     """
     Describe a secondary model.
+
     Connects applicant_bonus with job_opening.bonuses.
     """
 
@@ -139,7 +140,7 @@ class JobOpeningBonus(Base):
 class Bonus(Base):
     """Describe a model for bonus of applicant."""
 
-    __tablename__ = "applicant_bonus"
+    __tablename__ = "bonus"
 
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="bonuses",
@@ -152,6 +153,7 @@ class Bonus(Base):
 class JobOpeningContract(Base):
     """
     Describe a secondary model.
+
     Connects applicant_contract with job_opening.contracts.
     """
 
@@ -162,7 +164,7 @@ class JobOpeningContract(Base):
         primary_key=True,
     )
     contract_id: Mapped[UUID] = mapped_column(
-        ForeignKey("bonus.id", ondelete="CASCADE"),
+        ForeignKey("contract.id", ondelete="CASCADE"),
         primary_key=True,
     )
 
@@ -170,19 +172,20 @@ class JobOpeningContract(Base):
 class Contract(Base):
     """Describe a model for bonus of applicant."""
 
-    __tablename__ = "applicant_contract"
+    __tablename__ = "contract"
 
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="contracts",
         secondary="job_opening_contract",
         lazy="selectin",
     )
-    name: Mapped[str]
+    name: Mapped[str_256]
 
 
 class JobOpeningJobType(Base):
     """
     Describe a secondary model.
+
     Connects applicant_job_type with job_opening.job_types.
     """
 
@@ -193,7 +196,7 @@ class JobOpeningJobType(Base):
         primary_key=True,
     )
     job_type_id: Mapped[UUID] = mapped_column(
-        ForeignKey("bonus.id", ondelete="CASCADE"),
+        ForeignKey("job_type.id", ondelete="CASCADE"),
         primary_key=True,
     )
 
@@ -201,7 +204,7 @@ class JobOpeningJobType(Base):
 class JobType(Base):
     """Describe a model for job type for applicant."""
 
-    __tablename__ = "applicant_job_type"
+    __tablename__ = "job_type"
 
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="job_types",
@@ -214,6 +217,7 @@ class JobType(Base):
 class JobOpeningSkill(Base):
     """
     Describe a secondary model.
+
     Connects applicant_skill with job_opening.skills.
     """
 
@@ -232,7 +236,7 @@ class JobOpeningSkill(Base):
 class Skill(Base):
     """Describe a model for skill of applicant."""
 
-    __tablename__ = "applicant_skill"
+    __tablename__ = "skill"
 
     job_openings: Mapped[List["JobOpening"]] = relationship(
         back_populates="skills",

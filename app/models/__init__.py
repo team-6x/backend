@@ -12,4 +12,13 @@ from app.models.job_opening import (
     Skill,
     StopList,
 )
+from app.models.lookup_order import (
+    LegalForm,
+    LookupOrder,
+    LookupOrderFile,
+    LookupOrderLegalForm,
+    LookupOrderRecruiterResp,
+    RecruiterRequirement,
+    RecruiterResponsibility,
+)
 from app.models.user import User

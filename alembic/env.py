@@ -10,6 +10,8 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 from app.core.base import Base
 
+import alembic_postgresql_enum  # noqa
+
 load_dotenv(".env")
 
 # this is the Alembic Config object, which provides
