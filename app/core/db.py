@@ -20,7 +20,7 @@ str_256 = Annotated[str, LIMIT_CHAR_256]
 class PreBase:
     """Fields and settings for Base model."""
 
-    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.UUID)
+    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     type_annotation_map = {
         str_256: String(LIMIT_CHAR_256),
     }
