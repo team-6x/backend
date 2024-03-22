@@ -3,7 +3,6 @@
 import uuid
 from typing import Optional
 
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -48,30 +47,4 @@ class CRUDBase:
         session.add(db_obj)
         await session.commit()
         await session.refresh(db_obj)
-        return db_obj
-
-    async def update(
-        self,
-        db_obj,
-        obj_schema,
-        session: AsyncSession,
-    ):
-        """Update an existing object."""
-        obj_data = jsonable_encoder(db_obj)
-        update_data = obj_schema.dict()
-        for field in obj_data:
-            if field in update_data:
-                setattr(db_obj, field, update_data[field])
-        await session.refresh(db_obj)
-        await session.commit()
-        return db_obj
-
-    async def remove(
-        self,
-        db_obj,
-        session: AsyncSession,
-    ):
-        """Delete an existing object."""
-        await session.delete(db_obj)
-        await session.commit()
         return db_obj
