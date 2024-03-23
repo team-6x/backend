@@ -6,7 +6,6 @@ from typing import Optional, Union
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.core.constants import (
-    MAXIMUM_SALARY,
     MINIMUM_SALARY,
     EducationLevel,
     ExperienceDuration,
@@ -32,7 +31,7 @@ class JobOpeningCreate(BaseModel):
     job_types: list[DescriptionModelCreate]
     skills: Optional[list[NameModelCreate]] = None
     min_salary: int = Field(gt=MINIMUM_SALARY)
-    max_salary: int = Field(gt=MAXIMUM_SALARY)
+    max_salary: int = Field(gt=MINIMUM_SALARY)
     arrangement: WorkArrangements
     contracts: list[NameModelCreate]
     insurance: Optional[bool] = None
@@ -82,7 +81,15 @@ class JobOpeningUpdate(JobOpeningCreate):  # сделал на будущее н
             EducationLevel,
             NameModelCreate,
         ],
-    ):
+    ) -> Union[
+        str,
+        int,
+        list[str],
+        WorkArrangements,
+        ExperienceDuration,
+        EducationLevel,
+        NameModelCreate,
+    ]:
         """Check if all requierd fields are not empty."""
         if value is None:
             raise ValueError("Это поле не может быть пустым!")

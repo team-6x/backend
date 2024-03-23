@@ -39,7 +39,7 @@ class LookupOrderCreate(BaseModel):
     bounty: int = Field(gt=MINIMUM_BOUNTY)
     urgency_bounty: int = Field(
         default=MINIMUM_URGENCY_BOUNTY,
-        ge=MINIMUM_BOUNTY,
+        ge=MINIMUM_URGENCY_BOUNTY,
     )
     awaited_employee_date: datetime
     first_cv_await_date: Optional[datetime] = None
