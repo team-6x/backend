@@ -11,35 +11,21 @@ from pydantic import (
     field_validator,
     model_validator,
 )
-from sqlalchemy_file import FileField
 
 from app.core.constants import (
     MAXIMUM_RECRUITER_QUANTITY,
     MINIMAL_EMPLOYEE_AWAITING_TIME_DAYS,
+    MINIMUM_BOUNTY,
     MINIMUM_RECRUITER_QUANTITY,
     MINIMUM_URGENCY_BOUNTY,
     ExperienceDuration,
     TariffOption,
 )
-from app.core.db import str_256
-
-
-class FileModelCreate(BaseModel):
-    """Model with a file field."""
-
-    file: FileField
-
-
-class DescriptionModelCreate(BaseModel):
-    """Model with a description field."""
-
-    description: str
-
-
-class NameModelCreate(BaseModel):
-    """Model with a name field."""
-
-    name: str_256
+from app.schemas.base import (
+    DescriptionModelCreate,
+    FileModelCreate,
+    NameModelCreate,
+)
 
 
 class LookupOrderCreate(BaseModel):
@@ -50,8 +36,11 @@ class LookupOrderCreate(BaseModel):
     employer_id: uuid.UUID
     job_opening_id: uuid.UUID
     tariff: TariffOption
-    bounty: int = Field(gt=0)
-    urgency_bounty: int = Field(default=MINIMUM_URGENCY_BOUNTY, ge=0)
+    bounty: int = Field(gt=MINIMUM_BOUNTY)
+    urgency_bounty: int = Field(
+        default=MINIMUM_URGENCY_BOUNTY,
+        ge=MINIMUM_URGENCY_BOUNTY,
+    )
     awaited_employee_date: datetime
     first_cv_await_date: Optional[datetime] = None
     recruiter_quantity: int = Field(
