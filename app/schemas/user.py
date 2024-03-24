@@ -1,20 +1,20 @@
 """User Schemas."""
 
+import uuid
 from typing import Optional
 
 from fastapi_users import schemas
-from pydantic_extra_types.phone_numbers import PhoneNumber
 
 from app.core.constants import Role
 
 
-class UserRead(schemas.BaseUser[int]):
+class UserRead(schemas.BaseUser[uuid.UUID]):
     """Describe the scheme for the User to read."""
 
     name: str
     surname: str
     role: Role
-    phone_number: PhoneNumber
+    phone_number: str
 
 
 class UserCreate(schemas.BaseUserCreate):
@@ -23,7 +23,7 @@ class UserCreate(schemas.BaseUserCreate):
     name: str
     surname: str
     role: Role
-    phone_number: PhoneNumber
+    phone_number: str
 
 
 class UserUpdate(schemas.BaseUserUpdate):
@@ -31,4 +31,4 @@ class UserUpdate(schemas.BaseUserUpdate):
 
     name: Optional[str]
     surname: Optional[str]
-    phone_number: Optional[PhoneNumber]
+    phone_number: Optional[str]

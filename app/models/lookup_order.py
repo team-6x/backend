@@ -28,7 +28,6 @@ from app.core.constants import (
     TariffOption,
 )
 from app.core.db import Base, str_256
-from app.models.job_opening import JobOpening
 
 
 class LookupOrder(Base):
@@ -66,7 +65,7 @@ class LookupOrder(Base):
     )
     recruiter_requirements: Mapped[Optional[List["RecruiterRequirement"]]] = (
         relationship(
-            back_populates="recruiter_requirement",
+            back_populates="lookup_order",
             lazy="selectin",
         )
     )
@@ -154,7 +153,7 @@ class RecruiterResponsibility(Base):
 
     description: Mapped[str]
 
-    responsibilities: Mapped[List["LookupOrder"]] = relationship(
+    lookup_order: Mapped[List["LookupOrder"]] = relationship(
         back_populates="responsibilities",
         secondary="lookup_order_recruiter_resp",
         lazy="selectin",
@@ -187,7 +186,7 @@ class LegalForm(Base):
 
     name: Mapped[str_256]
 
-    legal_forms: Mapped[List["LookupOrder"]] = relationship(
+    lookup_orders: Mapped[List["LookupOrder"]] = relationship(
         back_populates="legal_forms",
         secondary="lookup_order_legal_form",
         lazy="selectin",

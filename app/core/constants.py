@@ -11,7 +11,16 @@ MINIMUM_RECRUITER_QUANTITY = 1
 MINIMUM_SALARY = 0
 
 
-class ExperienceDuration(str, enum.Enum):
+class ExtendedEnum(enum.Enum):
+    """Extend Enum class."""
+
+    @classmethod
+    def get_list(cls):
+        """Return a list of Enum's entities."""
+        return [value for value in cls]
+
+
+class ExperienceDuration(str, ExtendedEnum):
     """Enum class for work experience from employee."""
 
     FROM_ONE_TO_THREE_YEARS = "От 1 года до 3 лет"
@@ -20,7 +29,7 @@ class ExperienceDuration(str, enum.Enum):
     DOESNT_MATTER = "Не имеет значения"
 
 
-class EducationLevel(str, enum.Enum):
+class EducationLevel(str, ExtendedEnum):
     """Enum class for education level from employee."""
 
     MIDDLE = "Среднее"
@@ -33,7 +42,7 @@ class EducationLevel(str, enum.Enum):
     PHD = "Доктор наук"
 
 
-class WorkArrangements(str, enum.Enum):
+class WorkArrangements(str, ExtendedEnum):
     """Enum class for work format from employee."""
 
     OFFICE = "Офис"
