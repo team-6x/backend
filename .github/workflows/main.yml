@@ -37,7 +37,7 @@ jobs:
       - name: Push migrations image to DockerHub
         uses: docker/build-push-action@v4
         with:
-          context: infra/alembic.Dockerfile
+          context: ./infra/alembic.Dockerfile
           push: true
           tags: pandenic/hrspace_migrations:latest
   build_backend_and_push_to_docker_hub:
@@ -57,7 +57,7 @@ jobs:
       - name: Push backend image to DockerHub
         uses: docker/build-push-action@v4
         with:
-          context: infra/fast_api.Dockerfile
+          context: ./infra/fast_api.Dockerfile
           push: true
           tags: pandenic/hrspace_backend:latest
   build_gateway_and_push_to_docker_hub:
@@ -77,6 +77,6 @@ jobs:
       - name: Push gateway image to DockerHub
         uses: docker/build-push-action@v4
         with:
-          context: infra/nginx.Dockerfile
+          context: ./infra/nginx.Dockerfile
           push: true
           tags: pandenic/hrspace_gateway:latest
