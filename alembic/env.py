@@ -19,9 +19,9 @@ load_dotenv(".env")
 config = context.config
 
 DB_URL = (
-    f"postgresql+asyncpg://{os.environ['DB_USERNAME']}:"
-    f"{os.environ['DB_PASSWORD']}@{os.environ['DB_HOST']}"
-    f":{os.environ['DB_PORT']}/{os.environ['DB_NAME']}"
+    f"postgresql+asyncpg://{os.environ['POSTGRES_USER']}:"
+    f"{os.environ['POSTGRES_PASSWORD']}@{os.environ['POSTGRES_HOST']}"
+    f":5432/{os.environ['POSTGRES_DB']}"
 )
 config.set_main_option("sqlalchemy.url", DB_URL)
 
