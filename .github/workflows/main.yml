@@ -89,9 +89,9 @@ jobs:
     if: github.ref == 'refs/heads/feature/CI_CD'
     runs-on: ubuntu-latest
     needs:
-      - build_and_push_to_docker_hub
-      - build_frontend_and_push_to_docker_hub
-      - build_nginx_and_push_to_docker_hub
+      - build_migrations_and_push_to_docker_hub
+      - build_backend_and_push_to_docker_hub
+      - build_gateway_and_push_to_docker_hub
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
