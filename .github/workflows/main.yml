@@ -18,4 +18,5 @@ jobs:
         poetry install
     - name: Test with flake8
       run: |
+        ls
         poetry run flake8 app/ --config app/setup.cfg
