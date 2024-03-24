@@ -26,6 +26,7 @@ from app.schemas.base import (
     FileModelCreate,
     NameModelCreate,
 )
+from app.schemas.job_opening import JobOpeningCreate
 
 
 class LookupOrderCreate(BaseModel):
@@ -34,7 +35,7 @@ class LookupOrderCreate(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     employer_id: uuid.UUID
-    job_opening_id: uuid.UUID
+    job_opening: JobOpeningCreate
     tariff: TariffOption
     bounty: int = Field(gt=MINIMUM_BOUNTY)
     urgency_bounty: int = Field(

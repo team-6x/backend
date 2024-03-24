@@ -2,10 +2,8 @@
 
 from typing import List
 
-import phonenumbers
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy_utils import PhoneNumberType
 
 from app.core.constants import Role
 from app.core.db import Base, str_256
@@ -19,8 +17,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     name: Mapped[str_256]
     surname: Mapped[str_256]
     role: Mapped[Role]
-    phone_number: Mapped[phonenumbers] = mapped_column(
-        PhoneNumberType(),
+    phone_number: Mapped[str] = mapped_column(
         unique=True,
     )
     job_openings_employer: Mapped[List["JobOpening"]] = relationship(  # noqa

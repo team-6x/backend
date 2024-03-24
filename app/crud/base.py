@@ -1,12 +1,15 @@
 """Contains basic CRUD operations."""
 
 import uuid
-from typing import Optional
+from typing import Optional, TypeVar
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.db import Base
 from app.models.user import User
+
+ModelType = TypeVar("ModelType", bound=Base)
 
 
 class CRUDBase:
@@ -18,12 +21,16 @@ class CRUDBase:
 
     async def get(
         self,
-        obj_id: uuid.UUID,
         session: AsyncSession,
-    ):
-        """Get an object by its UUID."""
-        db_obj = await session.get(self.model, obj_id)
-        return db_obj
+        obj_id: uuid.UUID,
+    ) -> Optional[ModelType]:
+        """Get an object of this type."""
+        db_obj = await session.execute(
+            select(self.model).where(
+                self.model.id == obj_id,
+            ),
+        )
+        return db_obj.scalars().first()
 
     async def get_all(
         self,

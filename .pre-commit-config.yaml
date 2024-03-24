@@ -40,7 +40,7 @@ repos:
           - flake8-simplify
           - pep8-naming
         args:
-          - --ignore=CF002,SIM105,W503
+          - --ignore=CF002,SIM105,W503,F821
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.9.0
