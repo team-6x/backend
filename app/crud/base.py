@@ -22,8 +22,7 @@ class CRUDBase:
         session: AsyncSession,
     ):
         """Get an object by its UUID."""
-        db_obj = await session.get(self.model, obj_id)
-        return db_obj
+        return await session.get(self.model, obj_id)
 
     async def get_all(
         self,
