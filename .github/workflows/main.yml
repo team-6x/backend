@@ -85,3 +85,35 @@ jobs:
           file: ./infra/nginx.Dockerfile
           push: true
           tags: pandenic/hrspace_gateway:latest
+  deploy:
+    if: github.ref == 'refs/heads/feature/CI_CD'
+    runs-on: ubuntu-latest
+    needs:
+      - build_and_push_to_docker_hub
+      - build_frontend_and_push_to_docker_hub
+      - build_nginx_and_push_to_docker_hub
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Copy docker-compose.yml via ssh
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.FIRSTBYTE_SERVER_HOST }}
+          username: ${{ secrets.FIRSTBYTE_SERVER_USER }}
+          key: ${{ secrets.FIRSTBYTE_SSH_KEY }}
+          passphrase: ${{ secrets.FIRSTBYTE_PASSPHRASE }}
+          source: "docker-compose.yml"
+          target: "hrspace"
+      - name: Executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FIRSTBYTE_SERVER_HOST }}
+          username: ${{ secrets.FIRSTBYTE_SERVER_USER }}
+          key: ${{ secrets.FIRSTBYTE_SSH_KEY }}
+          passphrase: ${{ secrets.FIRSTBYTE_PASSPHRASE }}
+          script: |
+            cd hrspace
+            sudo docker compose pull
+            sudo docker compose down
+            sudo docker compose up -d
+            sudo docker system prune -af
