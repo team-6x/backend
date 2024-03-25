@@ -100,7 +100,6 @@ jobs:
         with:
           host: ${{ secrets.FIRSTBYTE_SERVER_HOST }}
           username: ${{ secrets.FIRSTBYTE_SERVER_USER }}
-          key: ${{ secrets.FIRSTBYTE_SSH_KEY }}
           passphrase: ${{ secrets.FIRSTBYTE_PASSPHRASE }}
           source: "docker-compose.yml"
           target: "hrspace"
