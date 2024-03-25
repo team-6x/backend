@@ -1,6 +1,5 @@
 """Define schemas for lookup order model processing."""
 
-import uuid
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -34,7 +33,6 @@ class LookupOrderCreate(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    employer_id: uuid.UUID
     job_opening: JobOpeningCreate
     tariff: TariffOption
     bounty: int = Field(gt=MINIMUM_BOUNTY)

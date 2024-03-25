@@ -57,7 +57,7 @@ class Role(str, enum.Enum):
     RECRUITER = "Рекрутер"
 
 
-class TariffOption(str, enum.Enum):
+class TariffOption(str, ExtendedEnum):
     """Describe a payment tariff options."""
 
     ALL_BEFORE = "100% до выхода"

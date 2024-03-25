@@ -2,14 +2,14 @@
 
 from typing import List
 
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTableUUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.constants import Role
 from app.core.db import Base, str_256
 
 
-class User(SQLAlchemyBaseUserTable[int], Base):
+class User(SQLAlchemyBaseUserTableUUID, Base):
     """Describe the model that stores the User."""
 
     __tablename__ = "user"

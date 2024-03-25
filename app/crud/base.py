@@ -7,6 +7,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import Base
+from app.models import Bonus, Contract, JobType, LegalForm
 from app.models.user import User
 
 ModelType = TypeVar("ModelType", bound=Base)
@@ -37,7 +38,9 @@ class CRUDBase:
         session: AsyncSession,
     ):
         """Get all objects of this type."""
-        db_objs = await session.execute(select(self.model))
+        db_objs = await session.execute(
+            select(self.model),
+        )
         return db_objs.scalars().all()
 
     async def create(
@@ -47,7 +50,7 @@ class CRUDBase:
         user: Optional[User] = None,
     ):
         """Create a new object."""
-        obj_data = obj_schema.dict()
+        obj_data = obj_schema.model_dump()
         if user:
             obj_data["employer_id"] = user.id
         db_obj = self.model(**obj_data)
@@ -55,3 +58,9 @@ class CRUDBase:
         await session.commit()
         await session.refresh(db_obj)
         return db_obj
+
+
+crud_legal_form = CRUDBase(LegalForm)
+crud_bonus = CRUDBase(Bonus)
+crud_contract = CRUDBase(Contract)
+crud_job_type = CRUDBase(JobType)

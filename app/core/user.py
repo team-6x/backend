@@ -1,13 +1,14 @@
 """User Settings."""
 
+import uuid
 from typing import Union
 
 from fastapi import Depends
 from fastapi_users import (
     BaseUserManager,
     FastAPIUsers,
-    IntegerIDMixin,
     InvalidPasswordException,
+    UUIDIDMixin,
 )
 from fastapi_users.authentication import (
     AuthenticationBackend,
@@ -43,7 +44,7 @@ auth_backend = AuthenticationBackend(
 )
 
 
-class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
+class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     """User Manager."""
 
     async def validate_password(
@@ -52,7 +53,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         user: Union[UserCreate, User],
     ) -> None:
         """Password validation."""
-        if len(password) < 8:
+        if len(password) < 3:
             raise InvalidPasswordException(
                 reason="Пароль должен содержать не менее 8 символов",
             )
@@ -67,7 +68,7 @@ async def get_user_manager(user_db=Depends(get_user_db)):
     yield UserManager(user_db)
 
 
-fastapi_users = FastAPIUsers[User, int](
+fastapi_users = FastAPIUsers[User, uuid.UUID](
     get_user_manager,
     [auth_backend],
 )
