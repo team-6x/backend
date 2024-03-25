@@ -53,5 +53,10 @@ pre-commit install
 
 9. Запустите docker compose с БД:
 ```bash
-docker compose -f infra/docker-compose.dev.yml up -d --build
+docker compose -f infra/docker-compose.dev.db.yml up -d --build
+```
+
+10. Запустите docker compose для запуска сайта:
+```bash
+docker compose up -d
 ```

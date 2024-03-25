@@ -1,10 +1,13 @@
 """Project settings."""
 
+import os  # noqa
 from typing import Optional
 
+from libcloud.storage.drivers.local import LocalStorageDriver  # noqa
 from pydantic import EmailStr, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
+from sqlalchemy_file.storage import StorageManager  # noqa
 
 
 class Settings(BaseSettings):
@@ -22,36 +25,32 @@ class Settings(BaseSettings):
 
     app_title: str = "HRSpace"
 
-    db_name: str
-    db_username: str
-    db_password: SecretStr
-    db_host: str
-    db_port: int
+    postgres_db: str
+    postgres_user: str
+    postgres_password: SecretStr
+    postgres_host: str
+    postgres_port: int
 
-    # os.makedirs("./upload_dir/lookup_order_file", 0o777, exist_ok=True)
-    # container = LocalStorageDriver("./upload_dir").get_container(
-    #     "lookup_order_file",
-    # )
-    # container = LocalStorageDriver("./upload_dir").get_container(
-    #     "job_opening_file",
-    # )
-    # StorageManager.add_storage("default", container)
+    """os.makedirs("./upload_dir/lookup_order_file", 0o777, exist_ok=True)
+    container = LocalStorageDriver("./upload_dir").get_container(
+        "lookup_order_file",
+    )
+    container = LocalStorageDriver("./upload_dir").get_container(
+        "job_opening_file",
+    )
+    StorageManager.add_storage("default", container)"""
 
     @property
     def postgres_connection_url(self) -> URL:
         """Return URL for connections establishing to postgres."""
         return URL.create(
             drivername="postgresql+asyncpg",
-            username=self.db_username,
-            password=self.db_password.get_secret_value(),
-            host=self.db_host,
-            port=self.db_port,
-            database=self.db_name,
+            username=self.postgres_user,
+            password=self.postgres_password.get_secret_value(),
+            host=self.postgres_host,
+            port=self.postgres_port,
+            database=self.postgres_db,
         )
 
 
 settings = Settings()
-# engine = create_engine(
-#     "sqlite:///example.db", connect_args={"check_same_thread": False}
-# )
-# # Base.metadata.create_all(engine)
