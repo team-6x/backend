@@ -100,7 +100,7 @@ jobs:
         with:
           host: ${{ secrets.FIRSTBYTE_SERVER_HOST }}
           username: ${{ secrets.FIRSTBYTE_SERVER_USER }}
-          passphrase: ${{ secrets.FIRSTBYTE_PASSPHRASE }}
+          password: ${{ secrets.FIRSTBYTE_PASSWORD }}
           source: "docker-compose.yml"
           target: "hrspace"
       - name: Executing remote ssh commands to deploy
@@ -108,8 +108,7 @@ jobs:
         with:
           host: ${{ secrets.FIRSTBYTE_SERVER_HOST }}
           username: ${{ secrets.FIRSTBYTE_SERVER_USER }}
-          key: ${{ secrets.FIRSTBYTE_SSH_KEY }}
-          passphrase: ${{ secrets.FIRSTBYTE_PASSPHRASE }}
+          password: ${{ secrets.FIRSTBYTE_PASSWORD }}
           script: |
             cd hrspace
             sudo docker compose pull
