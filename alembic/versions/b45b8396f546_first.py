@@ -1,8 +1,8 @@
 """First
 
-Revision ID: 108a4cfb21db
+Revision ID: b45b8396f546
 Revises:
-Create Date: 2024-03-25 21:14:39.447253
+Create Date: 2024-03-26 03:03:42.674659
 
 """
 
@@ -15,7 +15,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = "108a4cfb21db"
+revision: str = "b45b8396f546"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -184,7 +184,7 @@ def upgrade() -> None:
             ["job_opening.id"],
             ondelete="CASCADE",
         ),
-        sa.PrimaryKeyConstraint("job_opening_id", "id"),
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "job_opening_bonus",
@@ -230,7 +230,7 @@ def upgrade() -> None:
             ["job_opening.id"],
             ondelete="CASCADE",
         ),
-        sa.PrimaryKeyConstraint("job_opening_id", "id"),
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "job_opening_job_type",
@@ -320,7 +320,7 @@ def upgrade() -> None:
             ["job_opening.id"],
             ondelete="CASCADE",
         ),
-        sa.PrimaryKeyConstraint("job_opening_id", "id"),
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "lookup_order_file",

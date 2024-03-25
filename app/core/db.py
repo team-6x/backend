@@ -30,7 +30,11 @@ Base = declarative_base(cls=PreBase)
 
 engine = create_async_engine(settings.postgres_connection_url)
 
-AsyncSessionLocal = async_sessionmaker(engine, class_=AsyncSession)
+AsyncSessionLocal = async_sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+)
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
