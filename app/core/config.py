@@ -14,8 +14,9 @@ class Settings(BaseSettings):
     """Pydantic validated settings."""
 
     secret: str = "SECRET"
-    first_superuser_email: Optional[EmailStr] = None
-    first_superuser_password: Optional[str] = None
+    first_superuser_email: Optional[EmailStr] = "q@q.ru"
+    first_superuser_password: Optional[str] = "qweqweqwe1!"
+    first_superuser_phone_number: Optional[str] = "+79871509287"
 
     model_config = SettingsConfigDict(
         env_file=".env",

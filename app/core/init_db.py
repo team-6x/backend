@@ -58,5 +58,5 @@ async def create_first_superuser():
             name="superuser",
             surname="superuser",
             role=Role.EMPLOYER,
-            phone_number="+79871509281",
+            phone_number=settings.first_superuser_phone_number,
         )

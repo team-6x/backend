@@ -1,6 +1,5 @@
 """Contain a schmemas for JobOpening model."""
 
-import uuid
 from typing import Optional, Union
 
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -39,7 +38,6 @@ class JobOpeningCreate(BaseModel):
     location: Optional[str_256] = None
     file: Optional[FileModelCreate] = None
     additional_info: Optional[str]
-    employer_id: uuid.UUID
 
     @model_validator(mode="after")
     def check_salary(self) -> "JobOpeningCreate":

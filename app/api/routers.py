@@ -2,9 +2,9 @@
 
 from fastapi import APIRouter
 
-from app.api.endpoints import base_endpoints, lookup_order_router, user_router
+from app.api.endpoints import base_router, lookup_order_router, user_router
 
-main_router = APIRouter(prefix="/api/v1")
+main_router = APIRouter()
 main_router.include_router(user_router)
 main_router.include_router(lookup_order_router, tags=["lookup order"])
-main_router.include_router(base_endpoints, tags=["base endpoints"])
+main_router.include_router(base_router, tags=["base endpoints"])
