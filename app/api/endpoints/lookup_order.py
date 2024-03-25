@@ -19,9 +19,8 @@ async def create_lookup_order(
     user: User = Depends(current_user),
 ):
     """Pass."""
-    new_lookup_order = await crud_lookup_order.create_lookup_order(
+    return await crud_lookup_order.create_lookup_order(
         lookup_order,
         session,
         user,
     )
-    return new_lookup_order

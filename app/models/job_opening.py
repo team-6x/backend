@@ -68,7 +68,7 @@ class JobOpening(Base):
         back_populates="job_openings_employer",
         lazy="selectin",
     )
-    lookup_order: Mapped[Optional["LookupOrder"]] = relationship(
+    lookup_order: Mapped[Optional["LookupOrder"]] = relationship(  # noqa
         back_populates="job_opening",
         lazy="selectin",
     )
