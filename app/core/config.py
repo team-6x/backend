@@ -1,10 +1,13 @@
 """Project settings."""
 
-from typing import Optional
+import os
+from typing import ClassVar, Container, Optional
 
+from libcloud.storage.drivers.local import LocalStorageDriver
 from pydantic import EmailStr, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
+from sqlalchemy_file.storage import StorageManager
 
 
 class Settings(BaseSettings):
@@ -28,14 +31,20 @@ class Settings(BaseSettings):
     db_host: str
     db_port: int
 
-    # os.makedirs("./upload_dir/lookup_order_file", 0o777, exist_ok=True)
-    # container = LocalStorageDriver("./upload_dir").get_container(
-    #     "lookup_order_file",
-    # )
-    # container = LocalStorageDriver("./upload_dir").get_container(
-    #     "job_opening_file",
-    # )
-    # StorageManager.add_storage("default", container)
+    os.makedirs("./upload_dir/lookup_order_file", 0o777, exist_ok=True)
+    os.makedirs("./upload_dir/job_opening_file", 0o777, exist_ok=True)
+    container_lookup_order: ClassVar[Container] = LocalStorageDriver(
+        "./upload_dir",
+    ).get_container(
+        "lookup_order_file",
+    )
+    container_job_opening: ClassVar[Container] = LocalStorageDriver(
+        "./upload_dir",
+    ).get_container(
+        "job_opening_file",
+    )
+    StorageManager.add_storage("lookup_order", container_lookup_order)
+    StorageManager.add_storage("job_opening", container_job_opening)
 
     @property
     def postgres_connection_url(self) -> URL:
@@ -51,7 +60,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-# engine = create_engine(
-#     "sqlite:///example.db", connect_args={"check_same_thread": False}
-# )
-# # Base.metadata.create_all(engine)
