@@ -42,7 +42,7 @@ async def get_work_arrangements():
 @router.get("/tariff")
 async def get_tariffs():
     """Pass."""
-    return {"Education level": TariffOption.get_list()}
+    return {"Tariff Option": TariffOption.get_list()}
 
 
 @router.get("/legal_form")
