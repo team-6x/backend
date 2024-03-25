@@ -25,7 +25,7 @@ async def create_user(
     phone_number: str,
     is_superuser: bool = False,
 ):
-    """Сreation of a superuser."""
+    """Creation of a superuser."""
     try:
         async with get_async_session_context() as session:
             async with get_user_db_context(session) as user_db:

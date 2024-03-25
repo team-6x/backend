@@ -1,4 +1,5 @@
 """User Endpoints."""
+from http import HTTPStatus
 
 from fastapi import APIRouter, HTTPException
 
@@ -35,6 +36,6 @@ router.include_router(
 def delete_user(id: str):
     """Ban on deletion."""
     raise HTTPException(
-        status_code=405,
+        status_code=HTTPStatus.METHOD_NOT_ALLOWED,
         detail="Удаление запрещено",
     )

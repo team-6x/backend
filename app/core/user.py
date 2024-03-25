@@ -1,12 +1,14 @@
 """User Settings."""
 
+import uuid
+
 from typing import Union
 
 from fastapi import Depends
 from fastapi_users import (
     BaseUserManager,
     FastAPIUsers,
-    IntegerIDMixin,
+    UUIDIDMixin,
     InvalidPasswordException,
 )
 from fastapi_users.authentication import (
@@ -43,7 +45,7 @@ auth_backend = AuthenticationBackend(
 )
 
 
-class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
+class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     """User Manager."""
 
     async def validate_password(
@@ -67,7 +69,7 @@ async def get_user_manager(user_db=Depends(get_user_db)):
     yield UserManager(user_db)
 
 
-fastapi_users = FastAPIUsers[User, int](
+fastapi_users = FastAPIUsers[User, uuid.UUID](
     get_user_manager,
     [auth_backend],
 )
