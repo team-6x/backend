@@ -1,7 +1,6 @@
 """Define schemas for lookup order model processing."""
 
-import uuid
-from datetime import datetime, timedelta
+import datetime as dt
 from typing import Optional
 
 from pydantic import (
@@ -21,11 +20,7 @@ from app.core.constants import (
     ExperienceDuration,
     TariffOption,
 )
-from app.schemas.base import (
-    DescriptionModelCreate,
-    FileModelCreate,
-    NameModelCreate,
-)
+from app.schemas.base import DescriptionModelCreate, NameModelCreate
 from app.schemas.job_opening import JobOpeningCreate
 
 
@@ -34,7 +29,6 @@ class LookupOrderCreate(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    employer_id: uuid.UUID
     job_opening: JobOpeningCreate
     tariff: TariffOption
     bounty: int = Field(gt=MINIMUM_BOUNTY)
@@ -42,8 +36,8 @@ class LookupOrderCreate(BaseModel):
         default=MINIMUM_URGENCY_BOUNTY,
         ge=MINIMUM_URGENCY_BOUNTY,
     )
-    awaited_employee_date: datetime
-    first_cv_await_date: Optional[datetime] = None
+    awaited_employee_date: dt.date
+    first_cv_await_date: Optional[dt.date] = None
     recruiter_quantity: int = Field(
         ge=MINIMUM_RECRUITER_QUANTITY,
         le=MAXIMUM_RECRUITER_QUANTITY,
@@ -52,23 +46,24 @@ class LookupOrderCreate(BaseModel):
     legal_form: list[NameModelCreate]
     additional_info: Optional[str] = None
     responsibilities: Optional[list[DescriptionModelCreate]] = None
-    file: Optional[FileModelCreate] = None
+    # file: Optional[FileModelCreate] = None
     recruiter_requirements: Optional[list[DescriptionModelCreate]] = None
 
     @field_validator("awaited_employee_date")
     @classmethod
     def check_if_awaited_employee_date_later_than_minimal(
         cls,
-        value: datetime,
-    ) -> datetime:
+        value: dt.datetime,
+    ) -> dt.datetime:
         """
         Check awaited_employee_date.
 
         If it is supposed to be later than minimal allowed.
         """
-        if value < datetime.now() + timedelta(
+        date_with_delta = dt.date.today() + dt.timedelta(
             days=MINIMAL_EMPLOYEE_AWAITING_TIME_DAYS,
-        ):
+        )
+        if value < date_with_delta:
             raise ValueError(
                 "Дата ожидания близжайших анкет раньше допустимого",
             )

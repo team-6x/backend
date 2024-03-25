@@ -1,21 +1,21 @@
-"""First migration
+"""First
 
-Revision ID: 844e50aa4eb9
+Revision ID: b45b8396f546
 Revises:
-Create Date: 2024-03-24 19:11:19.678300
+Create Date: 2024-03-26 03:03:42.674659
 
 """
 
 from typing import Sequence, Union
 
-import sqlalchemy as sa
+import fastapi_users_db_sqlalchemy
 import sqlalchemy_file
+from alembic import op
+import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
-from alembic import op
-
 # revision identifiers, used by Alembic.
-revision: str = "844e50aa4eb9"
+revision: str = "b45b8396f546"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -102,12 +102,16 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column("phone_number", sa.String(), nullable=False),
+        sa.Column(
+            "id",
+            fastapi_users_db_sqlalchemy.generics.GUID(),
+            nullable=False,
+        ),
         sa.Column("email", sa.String(length=320), nullable=False),
         sa.Column("hashed_password", sa.String(length=1024), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False),
         sa.Column("is_superuser", sa.Boolean(), nullable=False),
         sa.Column("is_verified", sa.Boolean(), nullable=False),
-        sa.Column("id", sa.Uuid(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("phone_number"),
     )
@@ -161,7 +165,11 @@ def upgrade() -> None:
         sa.Column("insurance", sa.Boolean(), nullable=True),
         sa.Column("location", sa.String(), nullable=True),
         sa.Column("additional_info", sa.String(), nullable=True),
-        sa.Column("employer_id", sa.Uuid(), nullable=False),
+        sa.Column(
+            "employer_id",
+            fastapi_users_db_sqlalchemy.generics.GUID(),
+            nullable=False,
+        ),
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(["employer_id"], ["user.id"]),
         sa.PrimaryKeyConstraint("id"),
@@ -176,7 +184,7 @@ def upgrade() -> None:
             ["job_opening.id"],
             ondelete="CASCADE",
         ),
-        sa.PrimaryKeyConstraint("job_opening_id", "id"),
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "job_opening_bonus",
@@ -222,7 +230,7 @@ def upgrade() -> None:
             ["job_opening.id"],
             ondelete="CASCADE",
         ),
-        sa.PrimaryKeyConstraint("job_opening_id", "id"),
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "job_opening_job_type",
@@ -260,7 +268,11 @@ def upgrade() -> None:
     )
     op.create_table(
         "lookup_order",
-        sa.Column("employer_id", sa.Uuid(), nullable=False),
+        sa.Column(
+            "employer_id",
+            fastapi_users_db_sqlalchemy.generics.GUID(),
+            nullable=False,
+        ),
         sa.Column("job_opening_id", sa.Uuid(), nullable=False),
         sa.Column(
             "tariff",
@@ -308,7 +320,7 @@ def upgrade() -> None:
             ["job_opening.id"],
             ondelete="CASCADE",
         ),
-        sa.PrimaryKeyConstraint("job_opening_id", "id"),
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "lookup_order_file",
@@ -342,7 +354,11 @@ def upgrade() -> None:
     op.create_table(
         "lookup_order_recruiter",
         sa.Column("lookup_order_id", sa.Uuid(), nullable=False),
-        sa.Column("recruiter_id", sa.Uuid(), nullable=False),
+        sa.Column(
+            "recruiter_id",
+            fastapi_users_db_sqlalchemy.generics.GUID(),
+            nullable=False,
+        ),
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
             ["lookup_order_id"],

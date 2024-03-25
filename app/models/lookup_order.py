@@ -74,7 +74,7 @@ class LookupOrder(Base):
         secondary="lookup_order_recruiter",
         lazy="selectin",
     )
-    job_opening: Mapped["JobOpening"] = relationship(
+    job_opening: Mapped["JobOpening"] = relationship(  # noqa
         back_populates="lookup_order",
         lazy="selectin",
     )
