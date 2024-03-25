@@ -8,6 +8,9 @@ from app.core.init_db import create_first_superuser
 
 app = FastAPI(
     title=settings.app_title,
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
 )
 
 app.include_router(main_router)

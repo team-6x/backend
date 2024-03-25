@@ -15,6 +15,7 @@ from app.crud.base import (
     crud_contract,
     crud_job_type,
     crud_legal_form,
+    crud_recruiter_responsibility,
 )
 from app.schemas.base import DescriptionModelCreate, NameModelCreate
 
@@ -131,6 +132,29 @@ async def add_job_type(
     """Pass."""
     return {
         "Job type": await crud_job_type.create(
+            obj_in,
+            session,
+        ),
+    }
+
+
+@router.get("/recruiter_responsibility")
+async def get_recruiter_resp(
+    session: AsyncSession = Depends(get_async_session),
+):
+    """Pass."""
+    objs = await crud_job_type.get_all(session)
+    return {"Job type": [obj.description for obj in objs]}
+
+
+@router.post("/recruiter_responsibility")
+async def add_recruiter_resp(
+    obj_in: DescriptionModelCreate,
+    session: AsyncSession = Depends(get_async_session),
+):
+    """Pass."""
+    return {
+        "Job type": await crud_recruiter_responsibility.create(
             obj_in,
             session,
         ),

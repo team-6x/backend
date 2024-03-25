@@ -68,7 +68,7 @@ class JobOpening(Base):
         back_populates="job_openings_employer",
         lazy="selectin",
     )
-    lookup_order: Mapped["LookupOrder"] = relationship(
+    lookup_order: Mapped[Optional["LookupOrder"]] = relationship(
         back_populates="job_opening",
         lazy="selectin",
     )
@@ -81,7 +81,6 @@ class ApplicantResponsibility(Base):
 
     job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
-        primary_key=True,
     )
     job_opening: Mapped["JobOpening"] = relationship(
         back_populates="responsibilities",
@@ -97,7 +96,6 @@ class StopList(Base):
 
     job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
-        primary_key=True,
     )
     job_opening: Mapped["JobOpening"] = relationship(
         back_populates="stop_list",
@@ -113,7 +111,6 @@ class JobOpeningFile(Base):
 
     job_opening_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("job_opening.id", ondelete="CASCADE"),
-        primary_key=True,
     )
     job_opening: Mapped["JobOpening"] = relationship(
         back_populates="file",

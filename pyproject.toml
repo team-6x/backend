@@ -22,6 +22,8 @@ alembic-postgresql-enum = "^1.1.2"
 fasteners = "^0.19"
 phonenumbers = "^8.13.32"
 sqlalchemy-utils = "^0.41.1"
+python-dateutil = "^2.9.0.post0"
+pytz = "^2024.1"
 
 
 [tool.poetry.group.dev.dependencies]
