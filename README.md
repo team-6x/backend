@@ -1,7 +1,8 @@
 # Описание
 Сервис позволяет клиенту создавать заявку на найм рекрутера по определённым условиям.
 
-Сайт: https://hrspace.ddns.net
+Сайт: http://hrspace.ddns.net/api
+Доки: http://hrspace.ddns.net/api/docs
 
 ### Команда
 
