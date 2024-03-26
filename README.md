@@ -11,14 +11,14 @@
 - [Никита Сенгилейцев](https://github.com/NikAfraim)
 
 ### Технологии
-![](https://img.shields.io/badge/fastAPI-009485?logo=fastapi&logoColor=white&style=for-the-badge)
-![](https://img.shields.io/badge/PostgreSQL-blue?logo=postgresql&logoColor=white&style=for-the-badge)
-![](https://img.shields.io/badge/SQLalchemy-778877?logo=sqlalchemy&logoColor=white&style=for-the-badge)
+![](https://img.shields.io/badge/fast_API-009485?logo=fastapi&logoColor=white&style=for-the-badge)
+![](https://img.shields.io/badge/Postgre_SQL-blue?logo=postgresql&logoColor=white&style=for-the-badge)
+![](https://img.shields.io/badge/SQL_alchemy-778877?logo=sqlalchemy&logoColor=white&style=for-the-badge)
 ![](https://img.shields.io/badge/docker-blue?logo=docker&logoColor=white&style=for-the-badge)
 ![](https://img.shields.io/badge/UVcorn-purple?logo=uvcorn&logoColor=white&style=for-the-badge)
 ![](https://img.shields.io/badge/poetry-ad998b?logo=poetry&logoColor=white&style=for-the-badge)
 ![](https://img.shields.io/badge/alembic-yellow?logo=alembic&logoColor=white&style=for-the-badge)
-![](https://img.shields.io/badge/githubactions-black?logo=githubactions&logoColor=white&style=for-the-badge)
+![](https://img.shields.io/badge/github_actions-black?logo=githubactions&logoColor=white&style=for-the-badge)
 
 
 ## Запуск локально из образов
