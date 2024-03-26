@@ -17,6 +17,7 @@
 - https://img.shields.io/badge/UVcorn-purple?logo=uvcorn&logoColor=white&style=for-the-badge
 - https://img.shields.io/badge/poetry-ad998b?logo=poetry&logoColor=white&style=for-the-badge
 - https://img.shields.io/badge/alembic-yellow?logo=alembic&logoColor=white&style=for-the-badge
+- https://img.shields.io/badge/githubactions-black?logo=githubactions&logoColor=white&style=for-the-badge
 
 
 ## Запуск локально из образов
