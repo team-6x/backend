@@ -24,7 +24,7 @@ phonenumbers = "^8.13.32"
 sqlalchemy-utils = "^0.41.1"
 python-dateutil = "^2.9.0.post0"
 pytz = "^2024.1"
-githubactions
+
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.2"
