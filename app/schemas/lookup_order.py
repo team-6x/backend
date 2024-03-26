@@ -43,7 +43,7 @@ class LookupOrderCreate(BaseModel):
         le=MAXIMUM_RECRUITER_QUANTITY,
     )
     recruiter_experience: ExperienceDuration = ExperienceDuration.DOESNT_MATTER
-    legal_form: list[NameModelCreate]
+    legal_form: Optional[list[NameModelCreate]] = None
     additional_info: Optional[str] = None
     responsibilities: Optional[list[DescriptionModelCreate]] = None
     # file: Optional[FileModelCreate] = None
