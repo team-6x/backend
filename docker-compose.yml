@@ -47,7 +47,7 @@ services:
     restart: always
     image: asbest/hrspace-frontend
     volumes:
-      - static:/app/result_build
+      - static:/app/result_build/build
 
   gateway:
     container_name: hrspace_gateway
